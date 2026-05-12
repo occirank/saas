@@ -1,0 +1,7 @@
+{
+  "name": "Occirank",
+  "description": "SEO Audit SaaS — Screaming Frog + Express + React",
+  "type": "docker-compose",
+  "healthcheck": "/health",
+  "port": 3001
+}

@@ -1,0 +1,37 @@
+﻿N°;Actif;Question;Statut;Assigné;Outil;Notes;Catégorie;URLs Impactées
+1;TRUE;"Existe t-il des pages avec une balise <title> manquante ?";Échoué;;Screaming Frog;"1 URL(s) concernée(s)";Problèmes On-page;1
+2;TRUE;"Y'a t-il des pages avec balises <title> dupliquées ?";Échoué;;Screaming Frog;"13 URL(s) concernée(s)";Problèmes On-page;13
+3;TRUE;"Y'a t-il des pages avec balises Title dont le nombre de pixels est supérieur à 512 ?";Échoué;;Screaming Frog;"166 URL(s) concernée(s)";Problèmes On-page;166
+4;TRUE;"Y'a t-il des pages avec balises Title possédant moins de 30 caractères ?";Échoué;;Screaming Frog;"26 URL(s) concernée(s)";Problèmes On-page;26
+5;TRUE;"Y'a t-il des pages avec balises Title possédant plus de 60 caractères ?";Échoué;;Screaming Frog;"124 URL(s) concernée(s)";Problèmes On-page;124
+6;TRUE;"Existe t-il des pages avec une meta description manquante ?";Échoué;;Screaming Frog;"1 URL(s) concernée(s)";Problèmes On-page;1
+7;TRUE;"Y'a t-il des pages avec meta descriptions dupliquées ?";Échoué;;Screaming Frog;"13 URL(s) concernée(s)";Problèmes On-page;13
+8;TRUE;"Y'a t-il des pages avec meta description de moins de 70 caractères ?";Échoué;;Screaming Frog;"14 URL(s) concernée(s)";Problèmes On-page;14
+9;TRUE;"Y'a t-il des pages avec meta description de plus de 160 caractères ?";Échoué;;Screaming Frog;"49 URL(s) concernée(s)";Problèmes On-page;49
+10;TRUE;"Y'a t-il des pages avec meta description dont le nombre de pixels est supérieur à 835 ?";Échoué;;Screaming Frog;"173 URL(s) concernée(s)";Problèmes On-page;173
+11;TRUE;"Existe t-il des pages avec une balise H1 manquante ?";Échoué;;Screaming Frog;"222 URL(s) concernée(s)";Problèmes On-page;222
+12;TRUE;"Y'a t-il des pages avec plusieurs balises H1 ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+13;TRUE;"Y'a t-il des pages avec balises H1 dupliquées ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+14;TRUE;"Y'a t-il des pages avec balises H1 de plus de 70 caractères ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+15;TRUE;"Y'a t-il des pages sans balises H2 ?";Échoué;;Screaming Frog;"215 URL(s) concernée(s)";Problèmes On-page;215
+16;TRUE;"Y'a t-il des pages avec balises H2 de plus de 70 caractères ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+17;TRUE;"Y'a t-il des pages avec un contenu faible (< 300 mots) ?";Échoué;;Screaming Frog;"221 URL(s) concernée(s)";Problèmes On-page;221
+18;TRUE;"Existe t-il des pages orphelines (sans liens internes) ?";Réussi;;Screaming Frog;"";Structure du site;0
+19;TRUE;"Y'a t-il des pages profondes (> 3 clics de l'accueil) ?";Échoué;;Screaming Frog;"1 URL(s) concernée(s)";Structure du site;1
+20;TRUE;"Y'a t-il des pages en erreur (4xx/5xx) ?";Réussi;;Screaming Frog;"";Technique;0
+21;TRUE;"Y'a t-il des redirections sur le site ?";Réussi;;Screaming Frog;"";Technique;0
+22;TRUE;"Y'a t-il des redirections 302 qui devraient être 301 ?";Réussi;;Screaming Frog;"";Technique;0
+23;TRUE;"Y'a t-il des redirections meta refresh ?";Réussi;;Screaming Frog;"";Technique;0
+24;TRUE;"Y'a t-il des chaînes de redirection ?";Réussi;;Screaming Frog;"";Technique;0
+25;TRUE;"Y'a t-il des pages avec une taille supérieure à 500KB ?";Réussi;;Screaming Frog;"";Performance;0
+26;TRUE;"Y'a t-il des pages avec un temps de réponse supérieur à 2 secondes ?";Réussi;;Screaming Frog;"";Performance;0
+27;TRUE;"Y'a t-il des pages avec un score PSI mobile inférieur à 90 ?";Réussi;;Screaming Frog;"";Performance;0
+28;TRUE;"Y'a t-il des pages avec un score PSI desktop inférieur à 90 ?";Réussi;;Screaming Frog;"";Performance;0
+29;TRUE;"Y'a t-il des images sans texte alternatif (alt) ?";Réussi;;Screaming Frog;"";Images;0
+30;TRUE;"Y'a t-il des images de plus de 100KB ?";Réussi;;Screaming Frog;"";Images;0
+31;TRUE;"Y'a t-il des pages sans données structurées (schema.org) ?";Échoué;;Screaming Frog;"222 URL(s) concernée(s)";Schema;222
+32;TRUE;"Y'a t-il des erreurs dans les données structurées ?";Réussi;;Screaming Frog;"";Schema;0
+33;TRUE;"Y'a t-il des pages sans Google Analytics ?";Échoué;;Screaming Frog;"222 URL(s) concernée(s)";Analytics;222
+34;TRUE;"Le site utilise-t-il Universal Analytics au lieu de GA4 ?";Réussi;;Screaming Frog;"";Analytics;0
+35;TRUE;"Y'a t-il des liens internes avec paramètres UTM ?";Réussi;;Screaming Frog;"";Liens;0
+36;TRUE;"Y'a t-il des pages avec paramètres d'URL sans balise canonical ?";Réussi;;Screaming Frog;"";Canonical;0

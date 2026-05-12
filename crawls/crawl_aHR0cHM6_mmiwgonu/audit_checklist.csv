@@ -1,0 +1,63 @@
+﻿N°;Actif;Question;Statut;Assigné;Outil;Notes;Catégorie;URLs Impactées
+1;TRUE;"Existe t-il des pages avec une balise <title> manquante ?";Échoué;;Screaming Frog;"1 URL(s) concernée(s)";Problèmes On-page;1
+2;TRUE;"Y'a t-il des pages avec balises <title> dupliquées ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+3;TRUE;"Y'a t-il des pages avec balises Title dont le nombre de pixels est supérieur à 512 ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+4;TRUE;"Y'a t-il des pages avec balises Title possédant moins de 30 caractères ?";Échoué;;Screaming Frog;"1 URL(s) concernée(s)";Problèmes On-page;1
+5;TRUE;"Y'a t-il des pages avec balises Title possédant plus de 60 caractères ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+6;TRUE;"Existe t-il des pages avec une meta description manquante ?";Échoué;;Screaming Frog;"2 URL(s) concernée(s)";Problèmes On-page;2
+7;TRUE;"Y'a t-il des pages avec meta descriptions dupliquées ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+8;TRUE;"Y'a t-il des pages avec meta description de moins de 70 caractères ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+9;TRUE;"Y'a t-il des pages avec meta description de plus de 160 caractères ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+10;TRUE;"Y'a t-il des pages avec meta description dont le nombre de pixels est supérieur à 835 ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+11;TRUE;"Existe t-il des pages avec une balise H1 manquante ?";Échoué;;Screaming Frog;"2 URL(s) concernée(s)";Problèmes On-page;2
+12;TRUE;"Y'a t-il des pages avec plusieurs balises H1 ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+13;TRUE;"Y'a t-il des pages avec balises H1 dupliquées ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+14;TRUE;"Y'a t-il des pages avec balises H1 de plus de 70 caractères ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+15;TRUE;"Y'a t-il des pages sans balises H2 ?";Échoué;;Screaming Frog;"1 URL(s) concernée(s)";Problèmes On-page;1
+16;TRUE;"Y'a t-il des pages avec balises H2 de plus de 70 caractères ?";Réussi;;Screaming Frog;"";Problèmes On-page;0
+17;TRUE;"Y'a t-il des pages avec un contenu faible (< 300 mots) ?";Échoué;;Screaming Frog;"2 URL(s) concernée(s)";Problèmes On-page;2
+18;TRUE;"Existe t-il des pages orphelines (sans liens internes) ?";Échoué;;Screaming Frog;"1 URL(s) concernée(s)";Structure du site;1
+19;TRUE;"Y'a t-il des pages profondes (> 3 clics de l'accueil) ?";Réussi;;Screaming Frog;"";Structure du site;0
+20;TRUE;"Y'a t-il des pages en erreur (4xx/5xx) ?";Réussi;;Screaming Frog;"";Technique;0
+21;TRUE;"Y'a t-il des redirections sur le site ?";Réussi;;Screaming Frog;"";Technique;0
+22;TRUE;"Y'a t-il des redirections 302 qui devraient être 301 ?";Réussi;;Screaming Frog;"";Technique;0
+23;TRUE;"Y'a t-il des redirections meta refresh ?";Réussi;;Screaming Frog;"";Technique;0
+24;TRUE;"Y'a t-il des chaînes de redirection ?";Réussi;;Screaming Frog;"";Technique;0
+25;TRUE;"Y'a t-il des pages avec une taille supérieure à 500KB ?";Réussi;;Screaming Frog;"";Performance;0
+26;TRUE;"Y'a t-il des pages avec un temps de réponse supérieur à 2 secondes ?";Réussi;;Screaming Frog;"";Performance;0
+27;TRUE;"Y'a t-il des pages avec un score PSI mobile inférieur à 90 ?";Réussi;;Screaming Frog;"";Performance;0
+28;TRUE;"Y'a t-il des pages avec un score PSI desktop inférieur à 90 ?";Réussi;;Screaming Frog;"";Performance;0
+29;TRUE;"Y'a t-il des images sans texte alternatif (alt) ?";Réussi;;Screaming Frog;"";Images;0
+30;TRUE;"Y'a t-il des images de plus de 100KB ?";Réussi;;Screaming Frog;"";Images;0
+31;TRUE;"Y'a t-il des pages sans données structurées (schema.org) ?";Échoué;;Screaming Frog;"2 URL(s) concernée(s)";Schema;2
+32;TRUE;"Y'a t-il des erreurs dans les données structurées ?";Réussi;;Screaming Frog;"";Schema;0
+33;TRUE;"Y'a t-il des pages sans Google Analytics ?";Échoué;;Screaming Frog;"2 URL(s) concernée(s)";Analytics;2
+34;TRUE;"Le site utilise-t-il Universal Analytics au lieu de GA4 ?";Réussi;;Screaming Frog;"";Analytics;0
+35;TRUE;"Y'a t-il des liens internes avec paramètres UTM ?";Réussi;;Screaming Frog;"";Liens;0
+36;TRUE;"Y'a t-il des pages avec paramètres d'URL sans balise canonical ?";Réussi;;Screaming Frog;"";Canonical;0
+37;TRUE;"Si le site contient des catégories et sous-catégories, est-ce que l'architecture des URLs est en harmonie avec l'architecture de la navigation ?";Réussi;;Screaming Frog;"";Architecture;0
+38;TRUE;"Est-ce que certaines pages ne méritent pas d'exister (et de faire partie de la navigation) ?";Échoué;;Screaming Frog;"2 URL(s) concernée(s)";Architecture;2
+39;TRUE;"S'il y a une navigation à facettes ou avec filtres et si cela génère des URLs uniques, est-ce qu'une url canonique est déclarée?";Réussi;;Screaming Frog;"";Architecture;0
+40;TRUE;"Si le site utilise un système de pagination, est-ce que certaines pages paginées retournent un code réponse différent de 200 ?";Réussi;;Screaming Frog;"";Pagination;0
+41;TRUE;"Si le site utilise un système de pagination, est-ce que les pages paginées sont bien ordonnées (N-1 > N > N+1)?";Réussi;;Screaming Frog;"";Pagination;0
+42;TRUE;"Si le site utilise un système de pagination, est-ce que les instructions prev/next indiquent bien qu'une seule URL précédent et suivante?";Réussi;;Screaming Frog;"";Pagination;0
+43;TRUE;"Si le site utilise un système de pagination, est-ce que chaque page paginée indique correctement l'URL canonique (self canonical)?";Réussi;;Screaming Frog;"";Pagination;0
+44;TRUE;"Si le site utilise un système de pagination, est-ce que les pages paginées sont bien en index, follow?";Réussi;;Screaming Frog;"";Pagination;0
+45;TRUE;"Est-ce que les pages qui reçoivent le plus de liens internes sont celles qui ciblent les mots clés les plus importants pour le site?";Réussi;;Screaming Frog;"";Mots clés;0
+46;TRUE;"Est-ce que sur les pages les plus importantes, la balise Title inclut une fois le mot clé principal?";Réussi;;Screaming Frog;"";Mots clés;0
+47;TRUE;"Est-ce que sur les pages les plus importantes, le mot clé est placé au début dans la balise Title?";Réussi;;Screaming Frog;"";Mots clés;0
+48;TRUE;"Est-ce que sur les pages les plus importantes, la balise Meta description contient le mot clé principal?";Réussi;;Screaming Frog;"";Mots clés;0
+49;TRUE;"Est-ce que sur les pages les plus importantes, le mot clé principal est inclus dans la balise H1?";Réussi;;Screaming Frog;"";Mots clés;0
+50;TRUE;"Est-ce que sur les pages les plus importantes, le mot clé principal est inclus dans au moins une balise H2?";Réussi;;Screaming Frog;"";Mots clés;0
+51;TRUE;"Est-ce que sur les pages les plus importantes, le mot clé principal est inclus dans les 100 premiers mots de la page?";Réussi;;Screaming Frog;"";Mots clés;0
+52;TRUE;"Est-ce que sur les pages les plus importantes, le mot clé est inclus dans les 150 derniers mots?";Réussi;;Screaming Frog;"";Mots clés;0
+53;TRUE;"Est-ce que les pages importantes sont bien structurées à l'aide des balises Hn?";Réussi;;Screaming Frog;"";Structure;0
+54;TRUE;"Y'a t-il des balises Hn de très petite taille?";Réussi;;Screaming Frog;"";Structure;0
+55;TRUE;"Est-ce que sur les pages les plus importantes, les noms de chaque image décrivent bien les images?";Réussi;;Screaming Frog;"";Images;0
+56;TRUE;"Est-ce que les attributs ALT sont bien traduits dans chaque langue?";Réussi;;Screaming Frog;"";Internationalisation;0
+57;TRUE;"Est-ce que les URLs des pages localisées sont bien traduites?";Réussi;;Screaming Frog;"";Internationalisation;0
+58;TRUE;"Est-ce que certains contenus ne sont pas sécurisés?";Réussi;;Screaming Frog;"";Technique;0
+59;TRUE;"Y'a t-il des pages qui retournent un code 403?";Réussi;;Screaming Frog;"";Technique;0
+60;TRUE;"Y'a t-il des pages qui retournent un code 404?";Réussi;;Screaming Frog;"";Technique;0
+61;TRUE;"Y'a t-il des pages qui retournent un code 500?";Réussi;;Screaming Frog;"";Technique;0
+62;TRUE;"Y'a t-il des pages ne retournant aucune réponse (time-out)?";Réussi;;Screaming Frog;"";Technique;0

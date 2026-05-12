@@ -1,0 +1,12 @@
+
+> server@1.0.0 build
+> tsc
+
+src/routes/crawl.ts(2,51): error TS2305: Module '"../crawler/sf-crawler.js"' has no exported member 'isSFAvailable'.
+npm error Lifecycle script `build` failed with error:
+npm error code 2
+npm error path C:\Users\LITE\occirank\server
+npm error workspace server@1.0.0
+npm error location C:\Users\LITE\occirank\server
+npm error command failed
+npm error command C:\Windows\system32\cmd.exe /d /s /c tsc

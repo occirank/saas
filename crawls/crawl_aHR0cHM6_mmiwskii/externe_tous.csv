@@ -1,0 +1,5 @@
+﻿"Adresse","Type de contenu","Code HTTP","Statut","Crawl profondeur","Liens entrants"
+"https://github.com/rochacbruno/flasgger","text/html; charset=utf-8","301","Moved Permanently","1","1"
+"https://github.com/requests/httpbin","text/html; charset=utf-8","301","Moved Permanently","1","1"
+"https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700","text/css; charset=utf-8","200","OK","1","0"
+"https://kennethreitz.org/","text/html; charset=utf-8","200","OK","1","1"

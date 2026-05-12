@@ -1,0 +1,5 @@
+﻿"Adresse","Type de contenu","Code HTTP","Statut","Crawl profondeur","Liens entrants"
+"http://support.microsoft.com/kb/278835","text/html","307","Temporary Redirect","2","1"
+"https://www.websiteplanet.com/","text/html; charset=UTF-8","200","OK","2","1"
+"https://www.snapchat.com/add/beldi_brunch","","308","Permanent Redirect","2","1"
+"https://www.instagram.com/beldibrunch76","text/html; charset=""utf-8""","200","OK","2","1"

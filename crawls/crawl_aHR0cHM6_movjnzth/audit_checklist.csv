@@ -1,0 +1,71 @@
+﻿N°;Actif;Question;Statut;Assigné;Outil;Notes;Catégorie;URLs Impactées
+1;TRUE;"Si le site contient des catégories et sous-catégories, est-ce que l'architecture des URLs est en harmonie avec l'architecture de la navigation ?";Réussi;;Screaming Frog;"Vérifier la cohérence entre structure URL et menu";Architecture;0
+2;TRUE;"Est-ce que certaines pages ne méritent pas d'exister (et de faire partie de la navigation) ?";Réussi;;Screaming Frog;"Identifier les pages à faible valeur SEO";Architecture;0
+3;TRUE;"S'il y a une navigation à facettes ou avec filtres et si cela génère des URLs uniques, est-ce qu'une url canonique est déclarée?";Réussi;;Screaming Frog;"Éviter le contenu dupliqué des filtres";Architecture;0
+4;TRUE;"Si le site utilise un système de pagination, est-ce que certaines pages paginées retournent un code réponse différent de 200 ?";Réussi;;Screaming Frog;"Toutes les pages paginées doivent être accessibles";Pagination;0
+5;TRUE;"Si le site utilise un système de pagination, est-ce que les pages paginées sont bien ordonnées (N-1 > N > N+1)?";Réussi;;Screaming Frog;"Vérifier la logique de navigation entre pages";Pagination;0
+6;TRUE;"Si le site utilise un système de pagination, est-ce que les instructions prev/next indiquent bien qu'une seule URL précédent et suivante?";Réussi;;Screaming Frog;"Rel prev/next pour optimiser le crawl";Pagination;0
+7;TRUE;"Si le site utilise un système de pagination, est-ce que chaque page paginée indique correctement l'URL canonique (self canonical)?";Réussi;;Screaming Frog;"Self-referencing canonical sur chaque page";Pagination;0
+8;TRUE;"Si le site utilise un système de pagination, est-ce que les pages paginées sont bien en index, follow?";Réussi;;Screaming Frog;"Éviter noindex sur pages paginées";Pagination;0
+9;TRUE;"Est-ce que certaines pages sont trop profondes (au delà de 3 clics à partir de la page d'accueil)?";Réussi;;Screaming Frog;"Pages à plus de 3 clics = faible autorité";Maillage interne;0
+10;TRUE;"Est-ce que les pages qui reçoivent le plus de liens internes sont celles qui ciblent les mots clés les plus importants pour le site?";Réussi;;Screaming Frog;"Optimiser le PageRank interne vers pages stratégiques";Maillage interne;0
+11;TRUE;"Existe-t-il des pages orphelines?";Réussi;;Screaming Frog;"Pages sans liens internes = non découvrables";Maillage interne;0
+12;TRUE;"Existe t-il des pages avec une balise <title> manquante";Échoué;;Screaming Frog;"1 URL(s) concernée(s)";Title;1
+13;TRUE;"Y'a t-il des pages avec balises <title> dupliquées?";Réussi;;Screaming Frog;"Chaque page doit avoir un title unique";Title;0
+14;TRUE;"Y'a t-il des pages avec balises Title dont le nombre de pixels est supérieur à 512?";Réussi;;Screaming Frog;"Title tronqué dans les SERP au-delà de 512px";Title;0
+15;TRUE;"Y'a t-il des pages avec balises Title possédant moins de 30 caractères";Échoué;;Screaming Frog;"2 URL(s) concernée(s)";Title;2
+16;TRUE;"Est-ce que sur les pages les plus importantes, la balise Title inclut une fois le mot clé principal?";Réussi;;Screaming Frog;"Mot clé dans title = signal de pertinence";Title;0
+17;TRUE;"Est-ce que sur les pages les plus importantes, le mot clé est placé au début dans la balise Title?";Réussi;;Screaming Frog;"Mot clé en début de title = meilleur impact";Title;0
+18;TRUE;"Y'a t-il des pages ayant une balise meta description manquante ou vide";Échoué;;Screaming Frog;"4 URL(s) concernée(s)";Meta Description;4
+19;TRUE;"Y'a t-il des pages ayant une balise meta description dupliquée?";Réussi;;Screaming Frog;"Description unique pour chaque page";Meta Description;0
+20;TRUE;"Y'a t-il des pages dont la balise meta description contient plus de 835 pixels?";Échoué;;Screaming Frog;"1 URL(s) concernée(s)";Meta Description;1
+21;TRUE;"Y'a t-il des pages avec une balise meta description possédant moins de 70 caractères";Réussi;;Screaming Frog;"Description courte = message incomplet";Meta Description;0
+22;TRUE;"Est-ce que sur les pages les plus importantes, la balise Meta description contient le mot clé principal?";Échoué;;Screaming Frog;"2 URL(s) concernée(s)";Meta Description;2
+23;TRUE;"Y'a t-il des pages avec balises H1 manquantes ou vides?";Échoué;;Screaming Frog;"4 URL(s) concernée(s)";H1;4
+24;TRUE;"Y'a t-il des pages avec des balises H1 identiques / dupliquées";Réussi;;Screaming Frog;"H1 unique pour chaque page";H1;0
+25;TRUE;"Y'a t-il des pages avec balises H1 dépassant les 70 caractères";Réussi;;Screaming Frog;"H1 trop long = dilution du message";H1;0
+26;TRUE;"Y'a t-il des pages contenant plusieurs balises H1";Réussi;;Screaming Frog;"Un seul H1 par page (bonne pratique)";H1;0
+27;TRUE;"Y'a t-il des pages avec balises H2 manquantes ou vides qui devraient pourtant en tirer profit?";Échoué;;Screaming Frog;"4 URL(s) concernée(s)";H2;4
+28;TRUE;"Y'a t-il des pages avec balises H2 dépassant les 70 caractères";Réussi;;Screaming Frog;"H2 concis = meilleure lisibilité";H2;0
+29;TRUE;"Est-ce que les pages importantes sont bien structurées à l'aide des balises Hn?";Échoué;;Screaming Frog;"3 URL(s) concernée(s)";Structure;3
+30;TRUE;"Y'a t-il des balises Hn de très petite taille?";Réussi;;Screaming Frog;"Taille de police lisible (min 14px)";Structure;0
+31;TRUE;"Est-ce que sur les pages les plus importantes, le mot clé principal est inclus dans les 100 premiers mots de la page?";Réussi;;Screaming Frog;"Mot clé tôt = signal de pertinence";Contenu;0
+32;TRUE;"Est-ce que sur les pages les plus importantes, le mot clé est inclus dans les 150 derniers mots?";Réussi;;Screaming Frog;"Mot clé en conclusion = renforce le thème";Contenu;0
+33;TRUE;"Est-ce que sur les pages les plus importantes, le mot clé principal est inclus dans la balise H1?";Échoué;;Screaming Frog;"2 URL(s) concernée(s)";Contenu;2
+34;TRUE;"Est-ce que sur les pages les plus importantes, le mot clé principal est inclus dans au moins une balise H2?";Échoué;;Screaming Frog;"3 URL(s) concernée(s)";Contenu;3
+35;TRUE;"Le site utilise t-il des données structurées?";Échoué;;Screaming Frog;"7 URL(s) concernée(s)";Schema;7
+36;TRUE;"Y'a t-il des problèmes liés aux données structurées?";Réussi;;Screaming Frog;"Valider avec Google Rich Results Test";Schema;0
+37;TRUE;"Est-ce que le poids de toutes les images est inférieur à 100 ko?";Réussi;;Screaming Frog;"Images légères = temps de chargement optimal";Images;0
+38;TRUE;"Est-ce que sur les pages les plus importantes, les noms de chaque image décrivent bien les images?";Réussi;;Screaming Frog;"Noms de fichiers descriptifs = SEO images";Images;0
+39;TRUE;"Est-ce que toutes les images utilisent des attributs ALT dans la balise img?";Réussi;;Screaming Frog;"ALT obligatoire pour accessibilité et SEO";Images;0
+40;TRUE;"Est-ce que les attributs ALT sont bien traduits dans chaque langue?";Réussi;;Screaming Frog;"ALT localisé pour sites multilingues";Images;0
+41;TRUE;"Est-ce que les URLs des pages localisées sont bien traduites?";Réussi;;Screaming Frog;"URLs traduites = meilleur SEO local";International;0
+42;TRUE;"Est-ce que le code de suivi se trouve bien sur toutes les pages du site?";Échoué;;Screaming Frog;"7 URL(s) concernée(s)";Analytics;7
+43;TRUE;"Est-ce que le site utilise bien Universal Analytics (et non pas Google Analytics classique)?";Réussi;;Screaming Frog;"GA4 recommandé (UA déprécié)";Analytics;0
+44;TRUE;"Est-ce que certains liens internes contiennent des URLs de campagne?";Réussi;;Screaming Frog;"UTM sur liens internes = pollution des données";Analytics;0
+45;TRUE;"Est-ce que le score de vitesse Google Page Speed Insights (ordinateur) est supérieur à 90, pour les pages importantes?";Réussi;;Screaming Frog;"Score Desktop > 90 = bonne expérience";Performance;0
+46;TRUE;"Est-ce que le score de vitesse Google Page Speed Insights (mobile) est supérieur à 90, pour les pages importantes?";Réussi;;Screaming Frog;"Score Mobile > 90 = Mobile First Ready";Performance;0
+47;TRUE;"Est-ce que certains contenus ne sont pas sécurisés?";Réussi;;Screaming Frog;"HTTPS obligatoire, éviter mixed content";Sécurité;0
+48;TRUE;"Y'a t-il des redirections 302 internes?";Réussi;;Screaming Frog;"302 = temporaire, préférer 301 pour permanent";Statut HTTP;0
+49;TRUE;"Y'a t-il des pages qui retournent un code 403?";Réussi;;Screaming Frog;"403 = accès interdit, vérifier permissions";Statut HTTP;0
+50;TRUE;"Y'a t-il des pages qui retournent un code 404?";Réussi;;Screaming Frog;"404 = page introuvable, corriger liens cassés";Statut HTTP;0
+51;TRUE;"Y'a t-il des pages qui retournent un code 500?";Réussi;;Screaming Frog;"500 = erreur serveur, investigation requise";Statut HTTP;0
+52;TRUE;"Y'a t-il des pages ne retournant aucune réponse (time-out)?";Réussi;;Screaming Frog;"Timeout = serveur trop lent ou inaccessible";Statut HTTP;0
+53;TRUE;"Y'a t-il des chaines de redirection?";Réussi;;Screaming Frog;"Chaînes = perte de PageRank, simplifier";Statut HTTP;0
+54;TRUE;"Y'a t-il des redirections Meta Refresh utilisées?";Réussi;;Screaming Frog;"Meta refresh = mauvaise UX, utiliser 301";Statut HTTP;0
+55;TRUE;"Est-ce que l'état de l'indexation montre des anomalies?";Échoué;;Google Search Console;"1 URL(s) concernée(s)";Indexation;2
+56;TRUE;"Est-ce que le fichier robots.txt possède des ""Erreurs"" ou ""Avertissements""?";Réussi;;Google Search Console;"Tester robots.txt dans GSC";Robots.txt;0
+57;TRUE;"Est-ce que le site possède des pages bloquées non intentionnellement par robots.txt?";Réussi;;Google Search Console;"Vérifier les règles de blocage";Robots.txt;0
+58;TRUE;"Est-ce que le site possède des ressources non intentionnellement bloquées par robots.txt?";Réussi;;Google Search Console;"CSS/JS bloqués = rendu incomplet";Robots.txt;0
+59;TRUE;"Le site rencontre t-il des erreurs d'exploration (Crawl)?";Réussi;;Google Search Console;"Crawl Errors Report dans GSC";Exploration;0
+60;TRUE;"Est-ce que le site rencontre des anomalies au niveau statistiques de crawl par GoogleBot?";Échoué;;Google Search Console;"1 URL(s) concernée(s)";Exploration;1
+61;TRUE;"Est-ce que la/les sitemap(s) sont listées dans la Google Search Console?";Réussi;;Google Search Console;"Sitemaps Report dans GSC";Sitemaps;0
+62;TRUE;"Est-ce que la/les sitemap(s) possèdent des ""Erreurs"" ou ""avertissements""?";Échoué;;Google Search Console;"1 URL(s) concernée(s)";Sitemaps;1
+63;TRUE;"Y'a t'il des problèmes d'indexation pour ce(s) sous-domaine(s)?";Échoué;;Google Search Console;"1 URL(s) concernée(s)";Indexation;2
+64;TRUE;"Est-ce qu'une propriété Google Search Console par site (donc par pays) a bien été créé?";Réussi;;Google Search Console;"Une propriété GSC par domaine/pays";Configuration GSC;0
+65;TRUE;"Est-ce qu'un pays cible est défini dans Google Search Console pour chaque site?";Échoué;;Google Search Console;"1 URL(s) concernée(s)";International;1
+66;TRUE;"Est-ce que Google Search Console a détecté des erreurs relatives à la balise Hreflang?";Réussi;;Google Search Console;"International Targeting > Hreflang";International;0
+67;TRUE;"Est-ce que le site est configuré dans Google Search Console?";Réussi;;Google Search Console;"Vérification de propriété requise";Configuration GSC;0
+68;TRUE;"Est-ce que le site a reçu une pénalité de type ""Action manuelle"" par la Search Quality Team de Google?";Réussi;;Google Search Console;"Manual Actions Report dans GSC";Pénalités;0
+69;TRUE;"Est-ce que le site a des suggestions d'améliorations?";Réussi;;Google Search Console;"PageSpeed/Core Web Vitals dans GSC";Améliorations;0
+70;TRUE;"Le site possède t-il des problèmes de sécurité?";Réussi;;Google Search Console;"Security Issues Report dans GSC";Sécurité;0

@@ -1,0 +1,5 @@
+﻿"Adresse","Type de contenu","Code HTTP","Statut","Crawl profondeur","Liens entrants"
+"https://www.googletagmanager.com/gtag/js?id=GT-NFRNGCWZ","application/javascript; charset=UTF-8","200","OK","1","0"
+"http://www.generateur-de-mentions-legales.com/","text/html; charset=iso-8859-1","301","Moved Permanently","2","1"
+"http://support.microsoft.com/kb/278835","text/html","307","Temporary Redirect","2","1"
+"http://welye.com/","text/html; charset=UTF-8","301","Moved Permanently","2","1"

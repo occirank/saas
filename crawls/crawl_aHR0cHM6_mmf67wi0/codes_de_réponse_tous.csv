@@ -1,0 +1,3 @@
+﻿"Adresse","Type de contenu","Code HTTP","Statut","Indexabilité","Statut d'indexabilité","Liens entrants","Temps de réponse","URL de redirection","Type de redirection"
+"https://example.com/","text/html","200","OK","Indexable","","0","0,196","",""
+"https://iana.org/domains/example","text/html; charset=iso-8859-1","301","Moved Permanently","Non indexable","Redirigé","1","0,475","https://www.iana.org/domains/example","Redirection HTTP"

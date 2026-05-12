@@ -1,0 +1,189 @@
+﻿Ahrefs Reverse API - Documentation Technique
+
+
+Date : 25/03/2026
+Proxy : ah.sommaserver.click (proxy vers app.ahrefs.com)
+Cible analysée : www.cointribune.com/
+
+
+1. Architecture de l’API
+2. Base URL : https://ah.sommaserver.click/v4/
+3. Authentification : Cookie-based (cookie “proxy-session”)
+4. Parametre obligatoire sur chaque requete : original-host=app.ahrefs.com
+5. Content-Type des reponses : application/json
+6. Methode principale : GET avec le payload JSON encode en URL dans le parametre “input”
+7. Quelques endpoints POST avec body JSON (Content-Type: application/json)
+2. Authentification
+L’API utilise une authentification par cookie. Le cookie principal est “proxy-session”. Pour le recuperer 👍
+1. Ouvrir le navigateur sur ah.sommaserver.click et se connecter
+2. 2. Ouvrir les DevTools (F12) > Application > Cookies
+3. 3. Copier la valeur du cookie “proxy-session”
+Le cookie a une duree de vie limitee et devra etre renouvele regulierement.
+
+
+Cookies identifies :
+* proxy-session : cookie d’authentification principal (obligatoire)
+* - intercom-session-dic5omcp : cookie Intercom (optionnel)
+* - intercom-device-id-dic5omcp : cookie device Intercom (optionnel)
+3. Structure JSON de base (parametre “input”)
+La plupart des endpoints GET prennent un parametre “input” qui est un objet JSON encode en URL. Voici la structure de base pour analyser un domaine 👍
+{
+  “args”: {
+    “mode”: “subdomains”,
+    “protocol”: “both”,
+    “url”: “DOMAINE_CIBLE/”,
+    “multiTarget”: [“Single”, {
+      “target”: “DOMAINE_CIBLE/”,
+      “mode”: “subdomains”,
+      “protocol”: “both”
+    }],
+    “compareDate”: null,
+    “country”: “fr”,
+    “backlinksFilter”: null,
+    “best_links_filter”: “showAll”,
+    “competitors”: []
+  }
+}
+
+
+Parametres importants :
+* mode : “subdomains” (inclut tous les sous-domaines), “prefix” (URL exacte + sous-pages), “domain” (domaine entier), “exact” (URL exacte)
+* - country : code pays ISO (“fr”, “us”, “de”, etc.)
+* - url / target : le domaine cible avec slash final
+4. Commandes cURL
+5. Remplacer 88c7KC42lQqq6xSl880sQ92741e39949SI6707953cxBd4j0K6n50WN222c00x3AUl5OXmvGzNYu546HfFG4mGFG89252n2Q9TwC1583 par la valeur du cookie proxy-session.
+4.1 Domain Rating (DR)
+curl -s ‘https://ah.sommaserver.click/v4/seGetDomainRating?input=%7B%22args%22%3A%7B%22mode%22%3A%22subdomains%22%2C%22protocol%22%3A%22both%22%2C%22url%22%3A%22www.cointribune.com%2F%22%2C%22multiTarget%22%3A%5B%22Single%22%2C%7B%22target%22%3A%22www.cointribune.com%2F%22%2C%22mode%22%3A%22subdomains%22%2C%22protocol%22%3A%22both%22%7D%5D%2C%22compareDate%22%3Anull%2C%22country%22%3A%22fr%22%2C%22backlinksFilter%22%3Anull%2C%22best_links_filter%22%3A%22showAll%22%2C%22competitors%22%3A%5B%5D%7D%7D&original-host=app.ahrefs.com’ -b ‘proxy-session=88c7KC42lQqq6xSl880sQ92741e39949SI6707953cxBd4j0K6n50WN222c00x3AUl5OXmvGzNYu546HfFG4mGFG89252n2Q9TwC1583’
+
+
+Reponse : [“Ok”,{“ahrefsRank”:{“value”:153539,”delta”:null},”domainRating”:{“value”:67.0,”delta”:null}}]
+
+
+4.2 URL Rating (UR)
+curl -s ‘https://ah.sommaserver.click/v4/seGetUrlRating?input=%7B%22args%22%3A%7B%22mode%22%3A%22subdomains%22%2C%22protocol%22%3A%22both%22%2C%22url%22%3A%22www.cointribune.com%2F%22%2C%22multiTarget%22%3A%5B%22Single%22%2C%7B%22target%22%3A%22www.cointribune.com%2F%22%2C%22mode%22%3A%22subdomains%22%2C%22protocol%22%3A%22both%22%7D%5D%2C%22compareDate%22%3Anull%2C%22country%22%3A%22fr%22%2C%22backlinksFilter%22%3Anull%2C%22best_links_filter%22%3A%22showAll%22%2C%22competitors%22%3A%5B%5D%7D%7D&original-host=app.ahrefs.com’ -b ‘proxy-session=88c7KC42lQqq6xSl880sQ92741e39949SI6707953cxBd4j0K6n50WN222c00x3AUl5OXmvGzNYu546HfFG4mGFG89252n2Q9TwC1583’
+
+
+4.3 Page Info (trafic organique, keywords)
+curl -s ‘https://ah.sommaserver.click/v4/seGetPageInfo?input=%7B%22args%22%3A%7B%22mode%22%3A%22subdomains%22%2C%22protocol%22%3A%22both%22%2C%22url%22%3A%22www.cointribune.com%2F%22%2C%22multiTarget%22%3A%5B%22Single%22%2C%7B%22target%22%3A%22www.cointribune.com%2F%22%2C%22mode%22%3A%22subdomains%22%2C%22protocol%22%3A%22both%22%7D%5D%2C%22compareDate%22%3Anull%2C%22country%22%3A%22fr%22%2C%22backlinksFilter%22%3Anull%2C%22best_links_filter%22%3A%22showAll%22%2C%22competitors%22%3A%5B%5D%7D%7D&original-host=app.ahrefs.com’ -b ‘proxy-session=88c7KC42lQqq6xSl880sQ92741e39949SI6707953cxBd4j0K6n50WN222c00x3AUl5OXmvGzNYu546HfFG4mGFG89252n2Q9TwC1583’
+
+
+4.4 Backlinks Stats
+curl -s ‘https://ah.sommaserver.click/v4/seBacklinksStats?input=%7B%22args%22%3A%7B%22mode%22%3A%22subdomains%22%2C%22protocol%22%3A%22both%22%2C%22url%22%3A%22www.cointribune.com%2F%22%2C%22multiTarget%22%3A%5B%22Single%22%2C%7B%22target%22%3A%22www.cointribune.com%2F%22%2C%22mode%22%3A%22subdomains%22%2C%22protocol%22%3A%22both%22%7D%5D%2C%22compareDate%22%3Anull%2C%22country%22%3A%22fr%22%2C%22backlinksFilter%22%3Anull%2C%22best_links_filter%22%3A%22showAll%22%2C%22competitors%22%3A%5B%5D%7D%7D&original-host=app.ahrefs.com’ -b ‘proxy-session=88c7KC42lQqq6xSl880sQ92741e39949SI6707953cxBd4j0K6n50WN222c00x3AUl5OXmvGzNYu546HfFG4mGFG89252n2Q9TwC1583’
+
+
+4.5 AI Citations
+curl -s ‘https://ah.sommaserver.click/v4/seGetAICitations?input=%7B%22args%22%3A%7B%22mode%22%3A%22subdomains%22%2C%22protocol%22%3A%22both%22%2C%22url%22%3A%22www.cointribune.com%2F%22%2C%22multiTarget%22%3A%5B%22Single%22%2C%7B%22target%22%3A%22www.cointribune.com%2F%22%2C%22mode%22%3A%22subdomains%22%2C%22protocol%22%3A%22both%22%7D%5D%2C%22compareDate%22%3Anull%2C%22country%22%3A%22fr%22%2C%22backlinksFilter%22%3Anull%2C%22best_links_filter%22%3A%22showAll%22%2C%22competitors%22%3A%5B%5D%7D%7D&original-host=app.ahrefs.com’ -b ‘proxy-session=88c7KC42lQqq6xSl880sQ92741e39949SI6707953cxBd4j0K6n50WN222c00x3AUl5OXmvGzNYu546HfFG4mGFG89252n2Q9TwC1583’
+
+
+4.6 Metriques par pays
+curl -s ‘https://ah.sommaserver.click/v4/seGetMetricsByCountry?input=%7B%22args%22%3A%7B%22mode%22%3A%22subdomains%22%2C%22protocol%22%3A%22both%22%2C%22url%22%3A%22www.cointribune.com%2F%22%2C%22multiTarget%22%3A%5B%22Single%22%2C%7B%22target%22%3A%22www.cointribune.com%2F%22%2C%22mode%22%3A%22subdomains%22%2C%22protocol%22%3A%22both%22%7D%5D%2C%22compareDate%22%3Anull%2C%22country%22%3A%22fr%22%2C%22backlinksFilter%22%3Anull%2C%22best_links_filter%22%3A%22showAll%22%2C%22competitors%22%3A%5B%5D%7D%7D&original-host=app.ahrefs.com’ -b ‘proxy-session=88c7KC42lQqq6xSl880sQ92741e39949SI6707953cxBd4j0K6n50WN222c00x3AUl5OXmvGzNYu546HfFG4mGFG89252n2Q9TwC1583’
+
+
+5. Liste complete des 27 endpoints decouverts
+Tous les endpoints utilisent le meme parametre “input” (JSON encode en URL) sauf mention contraire. Remplacer le nom de l’endpoint dans l’URL de base.
+
+
+ENDPOINTS GET (parametre input standard) 👍seGetDomainRating - Domain Rating
+seGetUrlRating - URL Rating
+seGetPageInfo - Infos page (trafic, keywords)
+seBacklinksStats - Statistiques backlinks
+seGetAICitations - Citations IA (AI Overview, ChatGPT, Perplexity, Gemini, Copilot)
+seGetMetricsHistory - Historique des metriques (necessite params + chart)
+seRefdomainsHistory - Historique des referring domains (necessite chart)
+seGetUrHistory - Historique URL Rating (necessite chart)
+seGetDomainRatingHistory - Historique Domain Rating (necessite chart)
+seCrawledPagesHistory - Historique pages crawlees (necessite chart)
+seGetPositionsHistoryOverview - Historique des positions (necessite params + chart)
+seGetBrandedTraffic - Trafic de marque (necessite params + chart)
+seGetHtmlHistory - Historique HTML (necessite chart)
+seGetPagesByTraffic - Pages classees par trafic
+seCrawledPages - Pages crawlees
+seGetKeywordsIntentsOverview - Vue d’ensemble des intentions de keywords
+seOverviewBacklinksStatsBlock - Bloc statistiques backlinks
+seGetMetricsByCountry - Metriques ventilees par pays
+seGetOrganicCompetitorsOverview - Concurrents organiques (structure input differente)
+seGetPaidKeywordsByTopPositions - Keywords payants par positions
+seGetUniqueEntitiesByCategory - Entites uniques par categorie
+seGetTopEntitiesKeywordsHistory - Historique top entites keywords
+seGetOverviewSettings - Parametres de l’overview
+seGetBestFilters - Filtres disponibles (input=null)
+
+
+ENDPOINTS POST (body JSON) :
+tkGetSeSettings - Parametres du moteur de recherche
+tkGetOnboardingHint - Indications d’onboarding
+tkGetAppearance - Parametres d’apparence
+
+
+6. Endpoints historiques (avec parametres chart)
+7. Certains endpoints (historiques) necessitent des parametres supplementaires “chart” et/ou “params” dans l’objet input. Voici la structure etendue 👍
+8. {
+9.   “args”: { … meme structure de base … },
+10.   “params”: {
+11.     “filter”: null,
+12.     “size”: 0,
+13.     “offset”: 0,
+14.     “order_by”: null,
+15.     “shape”: null,
+16.     “timeout”: null
+17.   },
+18.   “chart”: {
+19.     “timeFrame”: “year2”,
+20.     “grouping”: “daily”
+21.   }
+22. }
+Valeurs possibles pour timeFrame : “month1”, “month3”, “month6”, “year1”, “year2”, “all”
+Valeurs possibles pour grouping : “daily”, “weekly”, “monthly”
+
+
+Exemple curl pour l’historique des metriques :
+
+
+curl -s ‘https://ah.sommaserver.click/v4/seGetMetricsHistory?input=%7B%22args%22%3A%7B%22mode%22%3A%22subdomains%22%2C%22protocol%22%3A%22both%22%2C%22url%22%3A%22www.cointribune.com%2F%22%2C%22multiTarget%22%3A%5B%22Single%22%2C%7B%22target%22%3A%22www.cointribune.com%2F%22%2C%22mode%22%3A%22subdomains%22%2C%22protocol%22%3A%22both%22%7D%5D%2C%22compareDate%22%3Anull%2C%22country%22%3A%22fr%22%2C%22backlinksFilter%22%3Anull%2C%22best_links_filter%22%3A%22showAll%22%2C%22competitors%22%3A%5B%5D%7D%2C%22params%22%3A%7B%22filter%22%3Anull%2C%22size%22%3A0%2C%22offset%22%3A0%2C%22order_by%22%3Anull%2C%22shape%22%3Anull%2C%22timeout%22%3Anull%7D%2C%22chart%22%3A%7B%22timeFrame%22%3A%22year2%22%2C%22grouping%22%3A%22daily%22%7D%7D&original-host=app.ahrefs.com’ -b ‘proxy-session=88c7KC42lQqq6xSl880sQ92741e39949SI6707953cxBd4j0K6n50WN222c00x3AUl5OXmvGzNYu546HfFG4mGFG89252n2Q9TwC1583’
+
+
+7. Template generique pour changer de domaine cible
+Pour adapter a un autre domaine, utiliser ce script Python pour generer l’URL encodee 👍
+import urllib.parse, json
+
+
+DOMAINE = “example.com/”
+COUNTRY = “fr”
+ENDPOINT = “seGetDomainRating”
+
+
+input_data = {
+    “args”: {
+        “mode”: “subdomains”,
+        “protocol”: “both”,
+        “url”: DOMAINE,
+        “multiTarget”: [“Single”, {
+            “target”: DOMAINE,
+            “mode”: “subdomains”,
+            “protocol”: “both”
+        }],
+        “compareDate”: None,
+        “country”: COUNTRY,
+        “backlinksFilter”: None,
+        “best_links_filter”: “showAll”,
+        “competitors”: []
+    }
+}
+
+
+encoded = urllib.parse.quote(json.dumps(input_data))
+url = f”https://ah.sommaserver.click/v4/{ENDPOINT}?input={encoded}&original-host=app.ahrefs.com”
+print(f”curl -s ‘{url}’ -b ‘proxy-session=88c7KC42lQqq6xSl880sQ92741e39949SI6707953cxBd4j0K6n50WN222c00x3AUl5OXmvGzNYu546HfFG4mGFG89252n2Q9TwC1583’”)
+
+
+8. Notes importantes
+* Le cookie proxy-session expire regulierement. Prevoir un mecanisme de refresh automatique (se reconnecter au proxy et recuperer un nouveau cookie).
+* - Toutes les reponses sont au format JSON, encapsulees dans un tableau [“Ok”, data] ou [“Error”, message].
+* - Le parametre original-host=app.ahrefs.com est obligatoire sur CHAQUE requete (GET ou POST).
+* - Les reponses sont cachees cote serveur (Cache-Control: private, max-age=900) soit 15 minutes.
+* - Le header Vary indique : x-workspace-id, X-Client-Version, Accept-Encoding.
+* - Le serveur tourne derriere Cloudflare.
+* - Pour les POST, le Content-Type doit etre application/json et le body doit etre un objet JSON valide (pas null).
+* - Les erreurs retournent : [“Error”, [“InvalidInput”, “message d’erreur”]].
+* - Le domaine cible doit toujours se terminer par un slash (ex: “example.com/”).
+* - Pour lire la reponse JSON proprement : ajouter | jq . a la fin du curl.
