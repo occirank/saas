@@ -59,7 +59,8 @@ WORKDIR /app
 
 COPY --from=server-builder /app/server/dist ./server/dist
 COPY --from=server-builder /app/server/package.json ./server/
-COPY --from=server-builder /app/server/node_modules ./server/node_modules
+# Workspaces hoist deps to /app/node_modules, not /app/server/node_modules
+COPY --from=server-builder /app/node_modules ./node_modules
 
 COPY --from=client-builder /app/client/dist ./server/dist/public
 
