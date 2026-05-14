@@ -34,9 +34,13 @@ mkdir -p "${SF_OUTPUT_DIR:-/var/lib/occirank/crawls}"
 # Apply Screaming Frog license key if provided via env var
 if [ -n "${SF_LICENSE_KEY}" ]; then
     mkdir -p /root/.ScreamingFrogSEOSpider
-    echo "${SF_LICENSE_KEY}" > /root/.ScreamingFrogSEOSpider/licence.txt
+    # Handle multi-line keys: \n literal or actual newlines both work
+    printf '%b\n' "${SF_LICENSE_KEY}" > /root/.ScreamingFrogSEOSpider/licence.txt
     echo "[entrypoint] Screaming Frog license key applied"
 fi
+
+# Ensure EULA is always accepted at current version
+echo 'eula.accepted=15' > /root/.ScreamingFrogSEOSpider/spider.config
 
 # Launch the Node.js application
 echo "[entrypoint] Starting application..."

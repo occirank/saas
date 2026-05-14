@@ -36,6 +36,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxss1 \
     libx11-xcb1 \
     libxkbfile1 \
+    libxtst6 \
     xdg-utils \
     wget \
     ca-certificates \
@@ -51,7 +52,7 @@ RUN wget -q "https://download.screamingfrog.co.uk/products/seo-spider/screamingf
 RUN ln -sf /usr/bin/screamingfrogseospider /usr/local/bin/screamingfrogseospider
 
 RUN mkdir -p /root/.ScreamingFrogSEOSpider \
-    && echo 'eula.accepted=12' > /root/.ScreamingFrogSEOSpider/spider.config
+    && echo 'eula.accepted=15' > /root/.ScreamingFrogSEOSpider/spider.config
 
 RUN screamingfrogseospider --help > /dev/null 2>&1 || echo "SF CLI installed (--help may fail without Xvfb)"
 
