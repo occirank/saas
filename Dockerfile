@@ -59,6 +59,9 @@ WORKDIR /app
 
 COPY --from=server-builder /app/server/dist ./server/dist
 COPY --from=server-builder /app/server/package.json ./server/
+COPY --from=server-builder /app/server/drizzle.config.ts ./server/
+COPY --from=server-builder /app/server/src ./server/src
+COPY --from=server-builder /app/server/drizzle ./server/drizzle
 # Workspaces hoist deps to /app/node_modules, not /app/server/node_modules
 COPY --from=server-builder /app/node_modules ./node_modules
 
