@@ -31,6 +31,13 @@ echo "[entrypoint] Xvfb running (PID: ${XVFB_PID})"
 # Ensure crawl output directory exists
 mkdir -p "${SF_OUTPUT_DIR:-/var/lib/occirank/crawls}"
 
+# Apply Screaming Frog license key if provided via env var
+if [ -n "${SF_LICENSE_KEY}" ]; then
+    mkdir -p /root/.ScreamingFrogSEOSpider
+    echo "${SF_LICENSE_KEY}" > /root/.ScreamingFrogSEOSpider/licence.txt
+    echo "[entrypoint] Screaming Frog license key applied"
+fi
+
 # Launch the Node.js application
 echo "[entrypoint] Starting application..."
 exec "$@"
