@@ -36,7 +36,14 @@ function unpackToken(token: string): { valid: boolean; reason?: string } {
 }
 
 export function authMiddleware(req: Request, res: Response, next: NextFunction): void {
-  if (req.path.startsWith('/api/auth/')) {
+  // Public routes: auth, OAuth flows (Google redirects don't carry tokens)
+  const publicPaths = [
+    '/api/auth/',
+    '/api/gsc/auth', '/api/gsc/callback',
+    '/api/ga/auth', '/api/ga/callback',
+    '/api/sheets/oauth/',
+  ];
+  if (publicPaths.some(p => req.path.startsWith(p))) {
     return next();
   }
   const authHeader = req.headers.authorization;
