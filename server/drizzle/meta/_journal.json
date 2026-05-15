@@ -8,6 +8,13 @@
       "when": 1773832143738,
       "tag": "0000_typical_shard",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1778853089535,
+      "tag": "0001_mute_stryfe",
+      "breakpoints": true
     }
   ]
 }

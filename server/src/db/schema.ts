@@ -111,6 +111,21 @@ export type NewGaProperty = typeof gaProperties.$inferInsert;
 export type GaAnalyticsRecord = typeof gaAnalytics.$inferSelect;
 export type NewGaAnalytics = typeof gaAnalytics.$inferInsert;
 
+// Google Sheets OAuth tokens
+export const sheetsTokens = pgTable('sheets_tokens', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  accessToken: text('access_token').notNull(),
+  refreshToken: text('refresh_token').notNull(),
+  expiryDate: bigint('expiry_date', { mode: 'number' }).notNull(),
+  tokenType: text('token_type').notNull().default('Bearer'),
+  scope: text('scope'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+export type SheetsTokenRecord = typeof sheetsTokens.$inferSelect;
+export type NewSheetsToken = typeof sheetsTokens.$inferInsert;
+
 
 // SEOptimer audit cache
 export const seoptimerCache = pgTable('seoptimer_cache', {
