@@ -1,5 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
+import axios from 'axios';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { LoginPage } from './pages/LoginPage';
 import { CrawlForm } from './components/CrawlForm';
 import { CrawlProgress } from './components/CrawlProgress';
 import { CrawlResults } from './components/CrawlResults';
@@ -13,9 +16,40 @@ import { KeywordsPage } from './pages/KeywordsPage';
 import type { CrawlJob } from './types/crawl';
 import type { SFCrawlResult } from './types/sf-result';
 
+// Attach token to every axios request
+axios.interceptors.request.use(config => {
+  const token = localStorage.getItem('occirank_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 type CrawlScreenState = 'idle' | 'running' | 'completed' | 'error';
 
 function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}
+
+function AppContent() {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full" />
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <LoginPage />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 flex flex-col">
       <Header />
@@ -36,6 +70,8 @@ function App() {
 }
 
 function Header() {
+  const { logout } = useAuth();
+
   return (
     <header className="bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -83,6 +119,15 @@ function Header() {
               </svg>
               New Audit
             </Link>
+            <button
+              onClick={logout}
+              className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+              title="Sign out"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+            </button>
           </nav>
         </div>
       </div>

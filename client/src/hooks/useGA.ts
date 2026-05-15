@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
+import axios from 'axios';
 import type {
   GAConnectionStatus,
   GAProperty,
@@ -40,12 +41,14 @@ export function useGA(): UseGAReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/ga/status');
-      const data: GAConnectionStatus = await response.json();
+      const response = await axios.get<GAConnectionStatus>('/api/ga/status');
+      const data = response.data;
       setStatus(data);
       return data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to check GA status';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to check GA status';
       setError(message);
       throw new Error(message);
     } finally {
@@ -57,13 +60,9 @@ export function useGA(): UseGAReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/ga/auth');
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to get auth URL');
-      }
-      const data: GAAuthResponse = await response.json();
-      
+      const response = await axios.get<GAAuthResponse>('/api/ga/auth');
+      const data = response.data;
+
       // Open popup for OAuth
       const width = 600;
       const height = 700;
@@ -95,7 +94,9 @@ export function useGA(): UseGAReturn {
         }, 500);
       });
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to connect to GA';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to connect to GA';
       setError(message);
       throw new Error(message);
     } finally {
@@ -107,16 +108,14 @@ export function useGA(): UseGAReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/ga/disconnect', { method: 'POST' });
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to disconnect');
-      }
+      await axios.post('/api/ga/disconnect');
       setStatus(null);
       setAnalytics(null);
       setProperties([]);
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to disconnect from GA';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to disconnect from GA';
       setError(message);
       throw new Error(message);
     } finally {
@@ -128,16 +127,14 @@ export function useGA(): UseGAReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/ga/properties');
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to get properties');
-      }
-      const data: GAProperty[] = await response.json();
+      const response = await axios.get<GAProperty[]>('/api/ga/properties');
+      const data = response.data;
       setProperties(data);
       return data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to get GA properties';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to get GA properties';
       setError(message);
       throw new Error(message);
     } finally {
@@ -154,27 +151,19 @@ export function useGA(): UseGAReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/ga/analytics', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          propertyId,
-          startDate,
-          endDate,
-          useCache: options?.useCache !== false,
-        }),
+      const response = await axios.post<GAAnalyticsResult>('/api/ga/analytics', {
+        propertyId,
+        startDate,
+        endDate,
+        useCache: options?.useCache !== false,
       });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to get analytics');
-      }
-
-      const data: GAAnalyticsResult = await response.json();
+      const data = response.data;
       setAnalytics(data);
       return data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to get GA analytics';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to get GA analytics';
       setError(message);
       throw new Error(message);
     } finally {
@@ -186,17 +175,14 @@ export function useGA(): UseGAReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/ga/realtime/${encodeURIComponent(propertyId)}`);
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to get realtime data');
-      }
-
-      const data: GARealtimeData = await response.json();
+      const response = await axios.get<GARealtimeData>(`/api/ga/realtime/${encodeURIComponent(propertyId)}`);
+      const data = response.data;
       setRealtime(data);
       return data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to get GA realtime data';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to get GA realtime data';
       setError(message);
       throw new Error(message);
     } finally {

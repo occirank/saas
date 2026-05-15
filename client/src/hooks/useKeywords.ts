@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import axios from 'axios';
 import type {
   KeywordWithRanking,
   CreateKeywordRequest,
@@ -17,9 +18,8 @@ export function useKeywords() {
   const fetchProjects = useCallback(async () => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${API}/projects`);
-      const data = await res.json();
-      setProjects(data);
+      const res = await axios.get(`${API}/projects`);
+      setProjects(res.data);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed');
     } finally {
@@ -30,12 +30,8 @@ export function useKeywords() {
   const createProject = async (name: string, domain: string) => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${API}/projects`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, domain }),
-      });
-      const project = await res.json();
+      const res = await axios.post(`${API}/projects`, { name, domain });
+      const project = res.data;
       fetchProjects();
       return project;
     } catch (e) {
@@ -48,12 +44,8 @@ export function useKeywords() {
   const addKeyword = async (data: CreateKeywordRequest) => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${API}/keywords`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      const kw = await res.json();
+      const res = await axios.post(`${API}/keywords`, data);
+      const kw = res.data;
       setKeywords(prev => [...prev, kw]);
       return kw;
     } catch (e) {
@@ -66,7 +58,7 @@ export function useKeywords() {
   const deleteKeyword = async (id: string) => {
     setIsLoading(true);
     try {
-      await fetch(`${API}/keywords/${id}`, { method: 'DELETE' });
+      await axios.delete(`${API}/keywords/${id}`);
       setKeywords(prev => prev.filter(k => k.id !== id));
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed');
@@ -80,15 +72,11 @@ export function useKeywords() {
     setError(null);
     console.log('[checkKeyword] Starting check for:', id);
     try {
-      const res = await fetch(`${API}/keywords/${id}/check`, { method: 'POST' });
+      const res = await axios.post(`${API}/keywords/${id}/check`);
       console.log('[checkKeyword] Response status:', res.status);
-      const result = await res.json();
+      const result = res.data;
       console.log('[checkKeyword] Response data:', result);
-      
-      if (!res.ok) {
-        throw new Error(result.error || result.hint || 'Failed to check keyword');
-      }
-      
+
       setKeywords(prev => {
         const updated = prev.map(k => {
           if (k.id === id) {
@@ -109,7 +97,9 @@ export function useKeywords() {
         return updated;
       });
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to check keyword';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.response?.data?.hint || e.message
+        : e instanceof Error ? e.message : 'Failed to check keyword';
       console.error('[checkKeyword] Error:', message);
       setError(message);
     } finally {
@@ -130,22 +120,17 @@ export function useKeywords() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${API}/projects/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      const updated = await res.json();
-      if (!res.ok) {
-        throw new Error(updated.error || 'Failed to update project');
-      }
+      const res = await axios.patch(`${API}/projects/${id}`, data);
+      const updated = res.data;
       setProjects(prev => prev.map(p => p.id === id ? { ...p, ...updated } : p));
       if (currentProject?.id === id) {
         setCurrentProject(prev => prev ? { ...prev, ...updated } : null);
       }
       return updated;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to update project';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to update project';
       setError(message);
       return null;
     } finally {
@@ -157,11 +142,7 @@ export function useKeywords() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${API}/projects/${id}`, { method: 'DELETE' });
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Failed to delete project');
-      }
+      await axios.delete(`${API}/projects/${id}`);
       setProjects(prev => prev.filter(p => p.id !== id));
       if (currentProject?.id === id) {
         const remaining = projects.filter(p => p.id !== id);
@@ -174,7 +155,9 @@ export function useKeywords() {
         }
       }
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to delete project';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to delete project';
       setError(message);
     } finally {
       setIsLoading(false);

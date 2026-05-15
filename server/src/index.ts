@@ -11,6 +11,7 @@ import { seoptimerRouter } from './routes/seoptimer.js';
 import { sheetsRouter } from './routes/sheets.js';
 import { keywordRouter } from './routes/keywords.js';
 import { ahrefsRouter } from './routes/ahrefs.js';
+import { authRouter, authMiddleware } from './auth/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,9 +23,16 @@ const isProduction = process.env.NODE_ENV === 'production';
 app.use(cors());
 app.use(express.json());
 
+// Health check - public
 app.get('/health', (_req: Request, res: Response) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
+
+// Auth routes - public (login, verify, logout)
+app.use('/api/auth', authRouter);
+
+// Protect all other API routes
+app.use('/api', authMiddleware);
 
 app.use('/api', auditRouter);
 app.use('/api/crawl', crawlRouter);

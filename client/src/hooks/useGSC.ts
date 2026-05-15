@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
+import axios from 'axios';
 import type {
   GSCConnectionStatus,
   GSCSite,
@@ -51,12 +52,14 @@ export function useGSC(): UseGSCReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/gsc/status');
-      const data: GSCConnectionStatus = await response.json();
+      const response = await axios.get<GSCConnectionStatus>('/api/gsc/status');
+      const data = response.data;
       setStatus(data);
       return data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to check GSC status';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to check GSC status';
       setError(message);
       throw new Error(message);
     } finally {
@@ -68,15 +71,12 @@ export function useGSC(): UseGSCReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/gsc/auth');
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to get auth URL');
-      }
-      const data: GSCAuthResponse = await response.json();
-      return data;
+      const response = await axios.get<GSCAuthResponse>('/api/gsc/auth');
+      return response.data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to connect to GSC';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to connect to GSC';
       setError(message);
       throw new Error(message);
     } finally {
@@ -88,16 +88,14 @@ export function useGSC(): UseGSCReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/gsc/disconnect', { method: 'POST' });
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to disconnect');
-      }
+      await axios.post('/api/gsc/disconnect');
       setStatus(null);
       setAnalytics(null);
       setSitemaps([]);
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to disconnect from GSC';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to disconnect from GSC';
       setError(message);
       throw new Error(message);
     } finally {
@@ -109,14 +107,12 @@ export function useGSC(): UseGSCReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/gsc/sites');
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to get sites');
-      }
-      return response.json();
+      const response = await axios.get<GSCSite[]>('/api/gsc/sites');
+      return response.data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to get GSC sites';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to get GSC sites';
       setError(message);
       throw new Error(message);
     } finally {
@@ -133,27 +129,21 @@ export function useGSC(): UseGSCReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/gsc/analytics', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          siteUrl,
-          startDate,
-          endDate,
-          dimensions: ['query', 'page'],
-          rowLimit: options?.rowLimit || 100,
-          useCache: options?.useCache !== false,
-        }),
+      const response = await axios.post<GSCAnalyticsResult>('/api/gsc/analytics', {
+        siteUrl,
+        startDate,
+        endDate,
+        dimensions: ['query', 'page'],
+        rowLimit: options?.rowLimit || 100,
+        useCache: options?.useCache !== false,
       });
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to get analytics');
-      }
-      const data: GSCAnalyticsResult = await response.json();
+      const data = response.data;
       setAnalytics(data);
       return data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to get GSC analytics';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to get GSC analytics';
       setError(message);
       throw new Error(message);
     } finally {
@@ -165,16 +155,14 @@ export function useGSC(): UseGSCReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/gsc/sitemaps/${encodeURIComponent(siteUrl)}`);
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to get sitemaps');
-      }
-      const data: GSCSitemap[] = await response.json();
+      const response = await axios.get<GSCSitemap[]>(`/api/gsc/sitemaps/${encodeURIComponent(siteUrl)}`);
+      const data = response.data;
       setSitemaps(data);
       return data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to get sitemaps';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to get sitemaps';
       setError(message);
       throw new Error(message);
     } finally {
@@ -186,17 +174,11 @@ export function useGSC(): UseGSCReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/gsc/sitemaps/${encodeURIComponent(siteUrl)}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sitemapPath }),
-      });
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to submit sitemap');
-      }
+      await axios.post(`/api/gsc/sitemaps/${encodeURIComponent(siteUrl)}`, { sitemapPath });
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to submit sitemap';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to submit sitemap';
       setError(message);
       throw new Error(message);
     } finally {
@@ -208,16 +190,13 @@ export function useGSC(): UseGSCReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        `/api/gsc/sitemaps/${encodeURIComponent(siteUrl)}?sitemapPath=${encodeURIComponent(sitemapPath)}`,
-        { method: 'DELETE' }
+      await axios.delete(
+        `/api/gsc/sitemaps/${encodeURIComponent(siteUrl)}?sitemapPath=${encodeURIComponent(sitemapPath)}`
       );
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to delete sitemap');
-      }
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to delete sitemap';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to delete sitemap';
       setError(message);
       throw new Error(message);
     } finally {
@@ -231,14 +210,12 @@ export function useGSC(): UseGSCReturn {
     try {
       const params = new URLSearchParams({ url });
       if (siteUrl) params.append('siteUrl', siteUrl);
-      const response = await fetch(`/api/gsc/url-inspection?${params.toString()}`);
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to get URL indexing status');
-      }
-      return response.json();
+      const response = await axios.get<GSCIndexStatus>(`/api/gsc/url-inspection?${params.toString()}`);
+      return response.data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to get URL indexing status';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to get URL indexing status';
       setError(message);
       throw new Error(message);
     } finally {
@@ -254,20 +231,18 @@ export function useGSC(): UseGSCReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/gsc/bulk-url-inspection', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ urls, siteUrl, concurrency }),
+      const response = await axios.post<GSCBulkIndexResult>('/api/gsc/bulk-url-inspection', {
+        urls,
+        siteUrl,
+        concurrency,
       });
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to get bulk URL indexing status');
-      }
-      const data: GSCBulkIndexResult = await response.json();
+      const data = response.data;
       setBulkIndexResult(data);
       return data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to get bulk URL indexing status';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to get bulk URL indexing status';
       setError(message);
       throw new Error(message);
     } finally {
@@ -289,16 +264,14 @@ export function useGSC(): UseGSCReturn {
       
       const queryString = params.toString();
       const url = `/api/gsc/full-index-coverage/${encodeURIComponent(siteUrl)}${queryString ? `?${queryString}` : ''}`;
-      const response = await fetch(url);
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to get full index coverage');
-      }
-      const data: GSCBulkIndexResult = await response.json();
+      const response = await axios.get<GSCBulkIndexResult>(url);
+      const data = response.data;
       setBulkIndexResult(data);
       return data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to get full index coverage';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to get full index coverage';
       setError(message);
       throw new Error(message);
     } finally {
@@ -318,16 +291,14 @@ export function useGSC(): UseGSCReturn {
       if (startDate) params.append('startDate', startDate);
       if (endDate) params.append('endDate', endDate);
       
-      const response = await fetch(`/api/gsc/index-coverage/${encodeURIComponent(siteUrl)}?${params.toString()}`);
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to get index coverage');
-      }
-      const data: GSCBulkIndexResult = await response.json();
+      const response = await axios.get<GSCBulkIndexResult>(`/api/gsc/index-coverage/${encodeURIComponent(siteUrl)}?${params.toString()}`);
+      const data = response.data;
       setBulkIndexResult(data);
       return data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to get index coverage';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to get index coverage';
       setError(message);
       throw new Error(message);
     } finally {
@@ -345,16 +316,14 @@ export function useGSC(): UseGSCReturn {
     setError(null);
     try {
       const url = `/api/gsc/accurate-index-coverage/${encodeURIComponent(siteUrl)}${refresh ? '?refresh=true' : ''}`;
-      const response = await fetch(url);
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to get accurate index coverage');
-      }
-      const data = await response.json();
+      const response = await axios.get<GSCBulkIndexResult & { cached?: boolean }>(url);
+      const data = response.data;
       setBulkIndexResult(data);
       return data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to get accurate index coverage';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to get accurate index coverage';
       setError(message);
       throw new Error(message);
     } finally {
@@ -366,14 +335,12 @@ export function useGSC(): UseGSCReturn {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/gsc/index-stats/${encodeURIComponent(siteUrl)}`);
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to get index stats');
-      }
-      return response.json();
+      const response = await axios.get(`/api/gsc/index-stats/${encodeURIComponent(siteUrl)}`);
+      return response.data;
     } catch (e) {
-      const message = e instanceof Error ? e.message : 'Failed to get index stats';
+      const message = axios.isAxiosError(e)
+        ? e.response?.data?.error || e.message
+        : e instanceof Error ? e.message : 'Failed to get index stats';
       setError(message);
       throw new Error(message);
     } finally {
