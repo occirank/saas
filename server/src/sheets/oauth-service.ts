@@ -88,7 +88,7 @@ export class GoogleOAuthService {
           refresh_token: row.refreshToken,
           expiry_date: row.expiryDate,
           token_type: row.tokenType,
-          scope: row.scope,
+          scope: row.scope ?? undefined,
         });
         console.log('[OAuth] Loaded saved tokens from DB');
       }
